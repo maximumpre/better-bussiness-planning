@@ -2,8 +2,9 @@ Deploy....
 
 ## Changelog
 
-### 2026-10-06 — Vercel Primary Host Alignment (Resolve Bing 308 Redirect Bug)
-- **Primary Host Alignment (`lib/site-url.ts`)**: Updated `SITE_ORIGIN` to `"https://www.betterbusinessplanning-wealthcareportal.com"` to match the Vercel Domains Primary 200-serving host. Resolves Bing Webmaster Tools *"Not indexed as this page is a redirect / URL cannot appear on Bing"* caused by apex 308 redirects, aligning sitemap, canonical links, and robots.txt.
+### 2026-10-06 — Align Canonical Origin with Vercel Primary Host (HTTP 200)
+- **Vercel Primary Domain Alignment (`lib/site-url.ts`)**: Updated `SITE_ORIGIN` to `https://www.betterbusinessplanning-wealthcareportal.com`, matching the live Vercel Primary Host that serves HTTP 200. Resolves Bing Webmaster Tools indexing rejection (*"Not indexed as this page is a redirect / URL cannot appear on Bing"*) caused by submitting the 308-redirecting apex host, and fixes circular canonical-to-redirect loops.
+- **Verification**: Prebuild gates pass exit 0 (`check-canonical-domain.mjs`, `audit-crawler-seo.mjs`, `check-meta-description.mjs`).
 
 ### 2026-10-06 — Domain-Agnostic Meta Description Standard, Cloudflare Peer ASN Uncloaking & ErrorScreen Image Alt Fix
 - **Domain-Agnostic Meta Description Standard (`lib/meta-description.ts`, `lib/seo-metadata.ts`)**: Added dedicated `lib/meta-description.ts` exporting domain-agnostic `LAYOUT_DESCRIPTION` (`"Access the BBP member portal to manage employer benefits, submit claims, and review your spending accounts with Better Business Planning."`, 137 chars). Eliminates duplicate domain display on SERP Line 2 & Line 4 while reinforcing brand signals.
