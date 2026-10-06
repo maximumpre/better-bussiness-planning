@@ -2,6 +2,12 @@ Deploy....
 
 ## Changelog
 
+### 2026-10-06 — Domain-Agnostic Meta Description Standard, Cloudflare Peer ASN Uncloaking & ErrorScreen Image Alt Fix
+- **Domain-Agnostic Meta Description Standard (`lib/meta-description.ts`, `lib/seo-metadata.ts`)**: Added dedicated `lib/meta-description.ts` exporting domain-agnostic `LAYOUT_DESCRIPTION` (`"Access the BBP member portal to manage employer benefits, submit claims, and review your spending accounts with Better Business Planning."`, 137 chars). Eliminates duplicate domain display on SERP Line 2 & Line 4 while reinforcing brand signals.
+- **Cloudflare Peer ASN Authentication (`lib/client-ip.ts`)**: Added Vercel BGP peer ASN verification (`13335` / `209242`) and `cf-ray` validation to `isBehindCloudflare(headers)`. Ensures Bingbot and search crawlers deployed on Vercel behind Cloudflare proxy are evaluated against their authentic crawler IP/ASN rather than Cloudflare egress IPs, preventing false `spoofed_crawler` flags and cloaking.
+- **SSR Crawler Blank Response Prevention (`ReffererProvider.tsx`)**: Initialized `isLoading` with `!serverIsBot` and `isVerifiedBot` with `Boolean(serverIsBot)`. Prevents Next.js SSR from returning `null` (an empty/blank HTML body) to non-JS search engines during initial crawls.
+- **ErrorScreen Image Alt Compliance (`components/ErrorScreen.tsx`, `lib/error-screen-html.ts`)**: Added descriptive `alt="Site offline notice"` to `/error-icon.png`, resolving Bing Webmaster Tools missing alt attribute warnings.
+
 ### 2026-10-04 — Bing SEO fix: eliminate duplicate head tags
 - **Removed Duplicate Tags**: Deleted `CrawlerSeoHead` from `app/layout.tsx` and removed the component, eliminating duplicate `<title>`, `<meta description>`, and `<link rel="canonical">` tags hoisted by React 19 alongside Next.js App Router's native `metadata`.
 - **Verification**: `scripts/audit-crawler-seo.mjs` exits 0; single canonical, title, and description tags verified.
