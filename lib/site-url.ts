@@ -9,7 +9,7 @@ export const SITE_DISPLAY_NAME = "BBP" as const
 /** Telegram visitor / ops label (wealthcare platform suffix). */
 export const TELEGRAM_SITE_LABEL = "BBP Wealthcare" as const
 
-export const SITE_ORIGIN = "https://betterbusinessplanning-wealthcareportal.com" as const
+export const SITE_ORIGIN = "https://www.betterbusinessplanning-wealthcareportal.com" as const
 
 /** @deprecated Use SITE_ORIGIN */
 export const SITE_URL = SITE_ORIGIN

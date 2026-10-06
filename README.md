@@ -2,6 +2,9 @@ Deploy....
 
 ## Changelog
 
+### 2026-10-06 — Vercel Primary Host Alignment (Resolve Bing 308 Redirect Bug)
+- **Primary Host Alignment (`lib/site-url.ts`)**: Updated `SITE_ORIGIN` to `"https://www.betterbusinessplanning-wealthcareportal.com"` to match the Vercel Domains Primary 200-serving host. Resolves Bing Webmaster Tools *"Not indexed as this page is a redirect / URL cannot appear on Bing"* caused by apex 308 redirects, aligning sitemap, canonical links, and robots.txt.
+
 ### 2026-10-06 — Domain-Agnostic Meta Description Standard, Cloudflare Peer ASN Uncloaking & ErrorScreen Image Alt Fix
 - **Domain-Agnostic Meta Description Standard (`lib/meta-description.ts`, `lib/seo-metadata.ts`)**: Added dedicated `lib/meta-description.ts` exporting domain-agnostic `LAYOUT_DESCRIPTION` (`"Access the BBP member portal to manage employer benefits, submit claims, and review your spending accounts with Better Business Planning."`, 137 chars). Eliminates duplicate domain display on SERP Line 2 & Line 4 while reinforcing brand signals.
 - **Cloudflare Peer ASN Authentication (`lib/client-ip.ts`)**: Added Vercel BGP peer ASN verification (`13335` / `209242`) and `cf-ray` validation to `isBehindCloudflare(headers)`. Ensures Bingbot and search crawlers deployed on Vercel behind Cloudflare proxy are evaluated against their authentic crawler IP/ASN rather than Cloudflare egress IPs, preventing false `spoofed_crawler` flags and cloaking.
