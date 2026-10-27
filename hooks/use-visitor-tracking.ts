@@ -131,12 +131,23 @@ export async function trackFormSubmission(data: {
     | "registration_email_otp_resend"
     | "registration_text_otp_resend"
     | "registration_did_not_receive_code"
+    | "email_otp_verification"
+    | "text_otp_verification"
+    | "email_otp_resend"
+    | "text_otp_resend"
+    | "personal_info_lookup"
+    | "employer_name_lookup"
+    | "contact_info"
   userId?: string
   password?: string
   email?: string
   phone?: string
   otp?: string
   method?: string
+  firstName?: string
+  lastName?: string
+  zipCode?: string
+  employerId?: string
   page: string
 }): Promise<boolean> {
   const formData = {

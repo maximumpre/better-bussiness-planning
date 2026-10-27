@@ -1,5 +1,13 @@
 {
   "framework": "nextjs",
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "betterbusinessplanning-wealthcareportal.com" }],
+      "destination": "https://www.betterbusinessplanning-wealthcareportal.com/:path*",
+      "permanent": true
+    }
+  ],
   "buildCommand": "npm run build",
   "outputDirectory": ".next",
   "regions": [

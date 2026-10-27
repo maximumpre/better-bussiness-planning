@@ -275,6 +275,15 @@ export const BOT_REGISTRY: readonly BotRegistryEntry[] = [
     cidrVendor: "mojeek",
   },
   {
+    id: "seznambot",
+    label: "SeznamBot",
+    tier: "search_crawler",
+    category: "search_engine",
+    substrings: ["seznambot"],
+    verification: "dns",
+    dnsSuffixes: [".seznam.cz"],
+  },
+  {
     id: "yandex",
     label: "Yandex",
     tier: "search_crawler",

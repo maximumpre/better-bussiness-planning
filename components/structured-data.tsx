@@ -3,17 +3,18 @@ import {
   SITE_DISPLAY_NAME,
   SITE_HOMEPAGE_CANONICAL,
   SITE_ORIGIN,
-  canonicalHostFromOrigin,
 } from "@/lib/site-url"
 
+/**
+ * Brand-only aliases. Raw hostnames are deliberately excluded: Google's site-name fallback
+ * displays a host-name alternateName in place of the brand and duplicates the URL in SERP layer 1.
+ */
 function buildAlternateNames(): string[] {
-  const host = canonicalHostFromOrigin()
   return [
     "Better Business Planning",
     "Better Business Planning, Inc.",
     "BBP Wealthcare",
     `${SITE_DISPLAY_NAME} Login`,
-    host.toLowerCase(),
   ]
 }
 

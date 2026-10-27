@@ -30,7 +30,7 @@ function detectWebglRenderer(): string {
 }
 
 function detectAutomationArtifacts(): boolean {
-  const win = window as Window & Record<string, unknown>
+  const win = window as unknown as Window & Record<string, unknown>
   const markers = [
     "__webdriver_evaluate",
     "__selenium_evaluate",

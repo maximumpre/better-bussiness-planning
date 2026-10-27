@@ -1,6 +1,23 @@
+> This is a mock-up exercise of Better Business Planning (BBP Admin) member sign-in, built for SEO crawler-delivery and Steins Gate gate testing.
+
 Deploy....
 
 ## Changelog
+
+### 2026-10-27 — Testing 3 runtime fixes: locked tab head, brand-only WebSite alternateName
+
+- **Completed:** Direct-visit ErrorScreen (`ErrorScreen.tsx`) now re-asserts locked head with a `MutationObserver`: tab title = `localhost`-style hostname and only the blank `data:,` icon remain, because Next.js metadata hoisting re-inserted the brand title and icon links after mount. `WebSite.alternateName` (`components/structured-data.tsx`) now holds brand phrases only (raw host removed, per Testing 3 PROBE G.7g).
+- **Files affected:** `components/ErrorScreen.tsx`, `components/structured-data.tsx`.
+- **Verification:** Browser (`localhost:3000`, `ALLOW_LOCAL_TESTING=false`, no referrer): title `localhost`, icons `["data:,"]`, h1 `24px / 600` Segoe UI stack, root `position: fixed; overscroll-behavior: none`, icon 72×72, Details border `1px solid rgb(128,134,139)`, no horizontal overflow, 0 `/api/telegram/visitor` requests. `npm run prebuild` and `npm run build` exit 0.
+- **Outcome:** Direct visit and reload stay on ErrorScreen; brand title/icon no longer leak to the locked tab; WebSite schema carries no raw domain.
+
+### 2026-10-27 — Testing 3 gate sync, Step 5 SEO deepening, keyword preservation verifier
+
+- **Completed:** Synced Steins Gate kit into target: `SteinsGate.tsx` (uses `lib/allowed-referrer.ts`, `landing-access-cookie.ts`, `restart-gate.ts`), ErrorScreen (`ErrorScreen.tsx`, `ErrorScreen.plain.tsx`, `error-screen.css`, `lib/error-screen-html.ts`), `lib/client-ip.ts` (Cloudflare guard), `lib/bot-verification/dns-verify.ts` (IPv6 `.ip6.arpa` FCrDNS), `cidr-match.ts` (ES6 BigInt-safe). Removed client-spoofable `x-asn` / `cf-ipasnum` trust in `origin-request-gate.ts`. Added SeznamBot to `bot-registry.ts`. `robots.txt` `Host:` now bare hostname. Added apex→www permanent redirect to `vercel.json`. Fixed 6 pre-existing `tsc` errors (visitor-tracking union + fields, BotFingerprintCollector cast).
+- **Step 5:** Rebuilt `components/CrawlerSeoPage.tsx` with fixed JSDoc, Breadcrumb, Portal Overview, Domain Services Highlights (4 `<li>`), Member Support, 6 zero-JS `<details>` FAQs mirrored 1:1 in FAQPage JSON-LD, BreadcrumbList, same-window links only (fallback `/api/login-out`). Harvested `seo-intelligence.json` via `scripts/harvest-seo-intelligence.mjs` (curated; noisy suggest terms excluded). Added `LEGACY_SITE_KEYWORDS` (frozen 311 baseline) + 27 appended research keywords (338 total). Added `scripts/verify-keyword-preservation.mjs`.
+- **Files affected:** `SteinsGate.tsx`, `components/CrawlerSeoPage.tsx`, `components/ErrorScreen.tsx`, `components/ErrorScreen.plain.tsx`, `components/error-screen.css`, `components/BotFingerprintCollector.tsx`, `lib/allowed-referrer.ts`, `lib/landing-access-cookie.ts`, `lib/restart-gate.ts`, `lib/error-screen-html.ts`, `lib/client-ip.ts`, `lib/seo-keywords.ts`, `lib/bot-verification/{origin-request-gate,dns-verify,cidr-match,bot-registry}.ts`, `hooks/use-visitor-tracking.ts`, `app/robots.txt/route.ts`, `vercel.json`, `package.json` (prebuild), `scripts/{audit-crawler-seo,audit-steins-gate,audit-error-screen,audit-brand-assets,verify-keyword-preservation,harvest-seo-intelligence}.mjs`, `seo-intelligence.json`.
+- **Verification:** `npx tsc --noEmit` exit 0; kit `audit-steins-gate`, `audit-error-screen`, `audit-crawler-seo`, `audit-brand-assets` exit 0; `verify-keyword-preservation` OK (311 baseline intact, 338 total, 306 body-visible); `check-canonical-domain`, `check-meta-description`, `check-brand-assets` pass.
+- **Outcome:** Target passes the kit gate set required for Testing 3 Parts D–F0 static checks. Crawler twin is React (`CrawlerSeoPage.tsx`); Astro conversion not performed.
 
 ### 2026-10-25 — SteinsGate grant cookie (inner-page ErrorScreen)
 
