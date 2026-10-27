@@ -785,6 +785,48 @@ export const STEP5_2026_10_27_KEYWORDS = [
   "how to reset Better Business Planning User ID",
 ] as const
 
+/**
+ * Step 5 full rerun (2026-10-27 evening) — append-only deepen from live Handshake crawl,
+ * bbpadmin.com product pages, Getting Started / Mobile App PDFs, and curated suggest harvest
+ * (noisy BBB / unrelated "better *" suggest collisions excluded).
+ */
+export const STEP5_2026_10_27_RERUN_KEYWORDS = [
+  "better business planning wealthcare",
+  "better business planning wealthcareportal",
+  "dac better business planning login",
+  "BBP Admin Mobile App Store",
+  "BBP Admin Mobile Google Play",
+  "BBP Admin Mobile App download",
+  "text BAL to 97487 BBP Admin",
+  "BBP Admin balance text BAL",
+  "BBP Admin ER ID registration",
+  "BBP Admin employer ID register",
+  "BBP Admin UserNameRetrieval",
+  "BBP Admin forgot username retrieval",
+  "BBP Admin Page Registration",
+  "BBP Admin FMLA administration",
+  "BBP Admin HRA administration",
+  "BBP Admin transit administration",
+  "BBP Admin lifestyle spending accounts",
+  "BBP Admin Virtual Medicine Cabinet",
+  "BBP Admin Find Care provider search",
+  "BBP Admin Devenir HSA investment",
+  "BBP Admin claims email",
+  "BBP Admin support phone 630-773-2337",
+  "BBP Admin COBRA phone 630-775-8551",
+  "BBP Admin Absence Tracker",
+  "employee benefit plan provider portal",
+  "employee benefit management provider portal",
+  "benefit plan management provider portal",
+  "BBP Admin participant portal register",
+  "how to register BBP Admin WealthCare portal",
+  "BBP Admin FSA Store eligible expenses",
+  "BBP Admin dependent care FSA DCAP",
+  "BBP Admin transit pass benefits",
+  "Better Business Planning Inc TPA Illinois",
+  "Better Business Planning nationwide benefit administrator",
+] as const
+
 export function buildSiteKeywords(): string[] {
   return mergeKeywords(
     BRAND_SLUG_LADDER,
@@ -799,6 +841,7 @@ export function buildSiteKeywords(): string[] {
     SPELLING_VARIANTS,
     STEP5_KEYWORDS,
     STEP5_2026_10_27_KEYWORDS,
+    STEP5_2026_10_27_RERUN_KEYWORDS,
   )
 }
 

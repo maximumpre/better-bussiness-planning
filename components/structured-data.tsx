@@ -18,7 +18,8 @@ function buildAlternateNames(): string[] {
   ]
 }
 
-export function StructuredData() {
+/** Astro pages import `{ SeoJsonLd }` — named export required (no default). */
+export function SeoJsonLd() {
   const websiteId = `${SITE_ORIGIN}/#website`
   const webpageId = `${SITE_ORIGIN}/#webpage`
 
@@ -76,4 +77,9 @@ export function StructuredData() {
       dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
     />
   )
+}
+
+/** @deprecated Prefer SeoJsonLd — kept for existing Next layout import. */
+export function StructuredData() {
+  return <SeoJsonLd />
 }

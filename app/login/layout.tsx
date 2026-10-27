@@ -6,8 +6,8 @@ export const metadata: Metadata = {
   title: 'Login',
   description: `Sign in to your ${ORG.shortName} account. ${ORG.tagline}`,
   robots: {
-    index: true,
-    follow: true,
+    index: false,
+    follow: false,
   },
 }
 

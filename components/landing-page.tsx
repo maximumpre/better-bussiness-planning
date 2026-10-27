@@ -17,10 +17,14 @@ import { useEffect, useState } from "react"
 import { PAGE_H1_HEADING } from "@/lib/seo-keywords"
 
 const SIGN_IN_LOADING_MS = 2000
-const BBP_LOGO =
+const BRAND_LOGO_SRC =
   "/BBPAdmin_Alegeus_Logo_Blue_Service.4ec5724d58c34a02b47bdfd467112a82.png"
 
-export default function LoginPage() {
+/**
+ * Human landing UI (formerly app/page.tsx). Mounted inside the Astro
+ * LandingShell island with client:only="react".
+ */
+export default function LandingPage() {
   useLandingVisitNotify(true)
   const [userId, setUserId] = useState("")
   const [password, setPassword] = useState("")
@@ -105,7 +109,7 @@ The information provided does not match our records. You may need to retry your 
         <div className="flex items-center">
           <Link href="/" className="flex items-center shrink-0">
             <Image
-              src={BBP_LOGO}
+              src={BRAND_LOGO_SRC}
               alt="BBP Admin"
               width={140}
               height={32}

@@ -4,6 +4,27 @@ Deploy....
 
 ## Changelog
 
+### 2026-10-27 — Testing 3 FULL green (D–H) on Astro Hybrid
+
+- **Completed:** Testing 3 Parts F0→D→E→F→G→H on `:3011`. Fixed gated OTP/registration layouts (`app/login/layout.tsx`, `app/registration/layout.tsx`) from `index,follow` → `noindex,nofollow`. Twin FAQ/Breadcrumb/Organization JSON-LD moved into `<head>`; Organization.name aligned to `SITE_DISPLAY_NAME` (`BBP`). Delivery split verified (Googlebot/social/AI → twin; Ahrefs/Semrush → ErrorScreen 200 + noindex; human search-referrer → Astro landing). CSP left/restored at `0`. `ALLOW_LOCAL_TESTING=true` unlock documented (no production Steins Gate claim for bare direct `/`).
+- **Files affected:** `app/login/layout.tsx`, `app/registration/layout.tsx`, `astro-src/pages/crawler-seo.astro`, `README.md`.
+- **Verification:** `npx tsc --noEmit` 0; `npm run prebuild` 0 (all audits); `npm run build` 0 (earlier F0); curl matrix on `:3011` for bots/robots/sitemap/og-image/404/gated noindex; kit audit md5 match; googlebot prefixes 1647; G.7g evidence h1/og/WebSite/Org = BBP.
+- **Outcome:** Testing 3 FULL GREEN for Betterbusinessplanning (Wealthcare kit).
+
+### 2026-10-27 — Astro Hybrid FULL conversion (Step 1 + 4 + 5)
+
+- **Completed:** Full Sleipnir Astro Hybrid kit wiring. Astro owns `/` (`public/index.html` + React island) and crawler twin (`public/crawler-seo.html`, zero exec JS). Middleware rewrite inside `nextWithHeaders` after origin→bot→risk→geo; `landing_bot`/`landing_geo`/`landing_local_testing` cookies `httpOnly: false`; `/_astro/` gate exclusions; no ungated `index.html`. Deleted `app/page.tsx` + `components/CrawlerSeoPage.tsx`; stripped layout crawler branch. Named `SeoJsonLd` export from `structured-data.tsx`. Keywords append-only (369 intact).
+- **Files affected:** `astro.config.mjs`, `astro-src/**`, `lib/crawler-ua.ts`, `scripts/{sync-astro-pages,astro-watch,dev}.mjs`, `components/{landing-page,structured-data,protected-layout}.tsx`, `middleware.ts`, `app/layout.tsx`, `lib/seo-crawler-paths.ts`, `package.json`, `.gitignore`, `scripts/verify-keyword-preservation.mjs`; deleted `app/page.tsx`, `components/CrawlerSeoPage.tsx`.
+- **Verification:** `npm run build` exit 0; all prebuild audits exit 0 (referrer-gate, steins-gate, error-screen, crawler-seo, brand-assets, keyword-preservation 311→369, neon, canonical, indexnow, meta-description, brand-assets); Next route table has no `/`.
+- **Outcome:** Renderer ownership complete — Astro serves landing + twin; Next owns API, flow pages, robots, sitemap.
+
+### 2026-10-27 — Step 5 FULL RERUN: deepen twin, keywords, link reconciliation, domains
+
+- **Completed:** Full Track A/B/C re-execution for BBP WealthCare. Logout destination confirmed `https://betterbusinessplanning.wealthcareportal.com/Authentication/Handshake`. Company entity: Better Business Planning, Inc. (BBP Admin; Archetype 2 Wealthcare/Alegeus). Re-harvested `seo-intelligence.json`. Appended 31 curated research keywords (`STEP5_2026_10_27_RERUN_KEYWORDS`) — total 369 (311 baseline intact, 0 deleted). Deepened React `CrawlerSeoPage.tsx`: entity-grounded 6 FAQs + FAQPage/Organization JSON-LD (`sameAs` App Store/Play/bbpadmin), Domain Services 5 bullets (Devenir, DCAP, mobile app), authentic Handshake link reconciliation (UserNameRetrieval, Registration, tel/mailto, App Store, Google Play, About, HSA/FSA product pages), fixed footer phone to (630) 773-2337, claims email, zero `target=_blank` / zero `href=#`. Astro twin deferred — no `astro-src/` pipeline.
+- **Files affected:** `components/CrawlerSeoPage.tsx`, `lib/seo-keywords.ts`, `seo-intelligence.json`, `README.md`.
+- **Verification:** `node scripts/harvest-seo-intelligence.mjs` OK; `verify-keyword-preservation` OK (311→369, 0 deleted); `npx tsc --noEmit` 0; `audit-crawler-seo` 0; `audit-brand-assets` 0; `check-meta-description` 0; `npm run build` 0. Domain Top 3 AVAILABLE via Verisign RDAP 404 + empty DNS (bbpadminportal.com, bbpadminaccess.com, bbpadminlogin.com).
+- **Outcome:** React twin meets applicable Step 5 DoD; Astro conversion remains open with blocker `astro-src/` absent.
+
 ### 2026-10-27 — Testing 3 runtime fixes: locked tab head, brand-only WebSite alternateName
 
 - **Completed:** Direct-visit ErrorScreen (`ErrorScreen.tsx`) now re-asserts locked head with a `MutationObserver`: tab title = `localhost`-style hostname and only the blank `data:,` icon remain, because Next.js metadata hoisting re-inserted the brand title and icon links after mount. `WebSite.alternateName` (`components/structured-data.tsx`) now holds brand phrases only (raw host removed, per Testing 3 PROBE G.7g).

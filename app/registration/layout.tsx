@@ -6,8 +6,8 @@ export const metadata: Metadata = {
   title: 'Register',
   description: `Create your ${ORG.shortName} account. Register to manage your benefits with ${ORG.name}. ${ORG.tagline}`,
   robots: {
-    index: true,
-    follow: true,
+    index: false,
+    follow: false,
   },
 }
 

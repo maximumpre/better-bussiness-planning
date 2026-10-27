@@ -1,13 +1,8 @@
 import type { Metadata } from "next"
-import { cookies, headers } from "next/headers"
 
-import CrawlerSeoPage from "@/components/CrawlerSeoPage"
 import ProtectedLayout from "@/components/protected-layout"
 import { StripExtensionAttrs } from "@/components/StripExtensionAttrs"
-import { StructuredData } from "@/components/structured-data"
-import { isCrawlerSeoPageUA } from "@/lib/bot-detection"
-import { isCrawlerSeoPreviewUnlocked } from "@/lib/crawler-seo-preview"
-import { isSeoCrawlerPath } from "@/lib/seo-crawler-paths"
+import { SeoJsonLd } from "@/components/structured-data"
 import { SITE_DESCRIPTION, SITE_KEYWORDS, SITE_TITLE } from "@/lib/seo-metadata"
 import { INDEXABLE_PAGE_ROBOTS } from "@/lib/seo-robots-metadata"
 import {
@@ -74,41 +69,16 @@ export const metadata: Metadata = {
 
 export const dynamic = "force-dynamic"
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const headersList = await headers()
-  const cookieStore = await cookies()
-  const pathname = headersList.get("x-pathname") || "/"
-  const ua =
-    headersList.get("user-agent") ||
-    headersList.get("x-original-user-agent") ||
-    headersList.get("x-forwarded-user-agent") ||
-    ""
-  const isCrawlerSeo =
-    isCrawlerSeoPreviewUnlocked() ||
-    headersList.get("x-crawler-seo-page") === "1" ||
-    cookieStore.get("x-crawler-seo-page")?.value === "1" ||
-    (isCrawlerSeoPageUA(ua) && isSeoCrawlerPath(pathname))
-
-  if (isCrawlerSeo) {
-    return (
-      <html lang="en-US" suppressHydrationWarning>
-        <body className="min-h-full bg-white font-sans antialiased" suppressHydrationWarning>
-          <StructuredData />
-          <CrawlerSeoPage />
-        </body>
-      </html>
-    )
-  }
-
   return (
     <html lang="en-US" suppressHydrationWarning>
       <body className="min-h-full bg-white font-sans antialiased" suppressHydrationWarning>
         <StripExtensionAttrs />
-        <StructuredData />
+        <SeoJsonLd />
         <ProtectedLayout>{children}</ProtectedLayout>
       </body>
     </html>

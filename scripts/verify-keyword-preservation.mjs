@@ -125,25 +125,33 @@ if (!/keywords:\s*SITE_KEYWORDS/.test(layoutSrc)) {
   failures.push("app/layout.tsx: missing `keywords: SITE_KEYWORDS` in the metadata export")
 }
 
-const crawlerSrc = read("components/CrawlerSeoPage.tsx")
+// Prefer Astro twin after Hybrid conversion; fall back to React CrawlerSeoPage.
+const crawlerRel = fs.existsSync(path.join(ROOT, "astro-src/pages/crawler-seo.astro"))
+  ? "astro-src/pages/crawler-seo.astro"
+  : "components/CrawlerSeoPage.tsx"
+const crawlerSrc = read(crawlerRel)
 const sectionStart = crawlerSrc.indexOf('aria-label="Related searches"')
 const sectionEnd = crawlerSrc.indexOf("</section>", sectionStart)
 const keywordBlock = sectionStart === -1 ? "" : crawlerSrc.slice(sectionStart, sectionEnd === -1 ? undefined : sectionEnd)
 if (!keywordBlock) {
-  failures.push('components/CrawlerSeoPage.tsx: missing the `aria-label="Related searches"` section')
+  failures.push(`${crawlerRel}: missing the \`aria-label="Related searches"\` section`)
 } else {
-  if (!/Related searches:/.test(keywordBlock)) failures.push("CrawlerSeoPage: keyword block lacks `Related searches:`")
-  if (/\bsr-only\b/.test(keywordBlock)) failures.push("CrawlerSeoPage: keyword block must not use sr-only")
-  if (/display:\s*none/.test(keywordBlock)) failures.push("CrawlerSeoPage: keyword block must not use display:none")
-  if (/opacity:\s*0\s*(;|\)|\}|\s|$)/m.test(keywordBlock)) failures.push("CrawlerSeoPage: keyword block must not use zero opacity")
-  if (!/SITE_VISIBLE_KEYWORDS\.join\(/.test(keywordBlock)) {
-    failures.push("CrawlerSeoPage: keyword block must render SITE_VISIBLE_KEYWORDS")
+  if (!/Related searches:/.test(keywordBlock)) failures.push(`${crawlerRel}: keyword block lacks \`Related searches:\``)
+  if (/\bsr-only\b/.test(keywordBlock)) failures.push(`${crawlerRel}: keyword block must not use sr-only`)
+  if (/display:\s*none/.test(keywordBlock)) failures.push(`${crawlerRel}: keyword block must not use display:none`)
+  if (/opacity:\s*0\s*(;|\)|\}|\s|$)/m.test(keywordBlock)) failures.push(`${crawlerRel}: keyword block must not use zero opacity`)
+  // Astro joins at frontmatter; React joins inline. Accept either.
+  if (
+    !/SITE_VISIBLE_KEYWORDS\.join\(/.test(crawlerSrc) &&
+    !/visibleKeywords/.test(keywordBlock)
+  ) {
+    failures.push(`${crawlerRel}: keyword block must render SITE_VISIBLE_KEYWORDS`)
   }
 }
 const relatedIdx = crawlerSrc.indexOf("Related searches:")
 const footerIdx = crawlerSrc.indexOf("<footer")
 if (relatedIdx !== -1 && footerIdx !== -1 && relatedIdx > footerIdx) {
-  failures.push("CrawlerSeoPage: `Related searches:` must render BEFORE <footer>")
+  failures.push(`${crawlerRel}: \`Related searches:\` must render BEFORE <footer>`)
 }
 
 // Body-safe subset (lib/seo-metadata.ts) must exist and contain no raw host or URL tokens.
